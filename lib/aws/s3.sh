@@ -254,7 +254,7 @@ s3_upload () {
 
     # If uploading a sufficiently large file, explicitly use the AWS multipart upload API
     if [[ ${verb} = 'cp' ]]; then
-        local filesize=$(stat -c '%s' ${source})
+        local filesize=$(wc -c < ${source})
         if [[ ${filesize} -gt 5242880 ]]; then
             s3_upload_multipart ${s3_bucket_name} ${source} ${destination} ${options}
             return $?
